@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EPEDIDOSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="categoria">
+    <Key>
+      <PropertyRef Name="Idn_Categoria" />
+    </Key>
+    <Property Name="Idn_Categoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Dsc_Nome" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Dta_Categoria" Type="DateTime" Precision="3" />
+    <Property Name="Dsc_Status" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="formulario" Relationship="Self.FK_formulario_categoria" FromRole="categoria" ToRole="formulario" />
+  </EntityType>
+  <EntityType Name="evento">
+    <Key>
+      <PropertyRef Name="Idn_Evento" />
+    </Key>
+    <Property Name="Idn_Evento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Idn_Pedido" Type="Int32" />
+    <Property Name="Dsc_Nome" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Dta_Evento" Type="DateTime" Precision="3" />
+    <Property Name="Dsc_Evento" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Dsc_Perfil" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="pedido" Relationship="Self.FK_evento_pedido" FromRole="evento" ToRole="pedido" />
+  </EntityType>
+  <EntityType Name="formulario">
+    <Key>
+      <PropertyRef Name="Idn_Formulario" />
+    </Key>
+    <Property Name="Idn_Formulario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Idn_Grupo" Type="Int32" />
+    <Property Name="Dsc_Nome" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Dta_Formulario" Type="DateTime" Precision="3" />
+    <Property Name="Idn_Categoria" Type="Int32" />
+    <Property Name="Dsc_Status" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+    <NavigationProperty Name="categoria" Relationship="Self.FK_formulario_categoria" FromRole="formulario" ToRole="categoria" />
+    <NavigationProperty Name="pedido" Relationship="Self.FK_pedido_formulario" FromRole="formulario" ToRole="pedido" />
+    <NavigationProperty Name="roteador" Relationship="Self.FK_roteador_formulario" FromRole="formulario" ToRole="roteador" />
+  </EntityType>
+  <EntityType Name="pedido">
+    <Key>
+      <PropertyRef Name="Idn_Pedido" />
+    </Key>
+    <Property Name="Idn_Pedido" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Idn_Grupo" Type="Int32" />
+    <Property Name="Idn_Formulario" Type="Int32" />
+    <Property Name="Idn_Usuario" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Idn_Usuario_Responsavel" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Idn_Executor" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Dsc_Texto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Dsc_Status" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Dta_Pedido" Type="DateTime" Precision="3" />
+    <Property Name="Dsc_Nome_Criador" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Dsc_Nome_Executor" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Dsc_Departamento" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Dsc_Endereco" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Dsc_Telefone" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="evento" Relationship="Self.FK_evento_pedido" FromRole="pedido" ToRole="evento" />
+    <NavigationProperty Name="formulario" Relationship="Self.FK_pedido_formulario" FromRole="pedido" ToRole="formulario" />
+  </EntityType>
+  <EntityType Name="roteador">
+    <Key>
+      <PropertyRef Name="Idn_Formulario" />
+      <PropertyRef Name="Idn_Grupo" />
+    </Key>
+    <Property Name="Idn_Formulario" Type="Int32" Nullable="false" />
+    <Property Name="Idn_Grupo" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="formulario" Relationship="Self.FK_roteador_formulario" FromRole="roteador" ToRole="formulario" />
+  </EntityType>
+  <Association Name="FK_formulario_categoria">
+    <End Role="categoria" Type="Self.categoria" Multiplicity="0..1" />
+    <End Role="formulario" Type="Self.formulario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="categoria">
+        <PropertyRef Name="Idn_Categoria" />
+      </Principal>
+      <Dependent Role="formulario">
+        <PropertyRef Name="Idn_Categoria" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_evento_pedido">
+    <End Role="pedido" Type="Self.pedido" Multiplicity="0..1" />
+    <End Role="evento" Type="Self.evento" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="pedido">
+        <PropertyRef Name="Idn_Pedido" />
+      </Principal>
+      <Dependent Role="evento">
+        <PropertyRef Name="Idn_Pedido" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_pedido_formulario">
+    <End Role="formulario" Type="Self.formulario" Multiplicity="0..1" />
+    <End Role="pedido" Type="Self.pedido" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="formulario">
+        <PropertyRef Name="Idn_Formulario" />
+      </Principal>
+      <Dependent Role="pedido">
+        <PropertyRef Name="Idn_Formulario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_roteador_formulario">
+    <End Role="formulario" Type="Self.formulario" Multiplicity="1" />
+    <End Role="roteador" Type="Self.roteador" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="formulario">
+        <PropertyRef Name="Idn_Formulario" />
+      </Principal>
+      <Dependent Role="roteador">
+        <PropertyRef Name="Idn_Formulario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="EPEDIDOSEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="categoria" EntityType="Self.categoria" />
+    <EntitySet Name="evento" EntityType="Self.evento" />
+    <EntitySet Name="formulario" EntityType="Self.formulario" />
+    <EntitySet Name="pedido" EntityType="Self.pedido" />
+    <EntitySet Name="roteador" EntityType="Self.roteador" />
+    <AssociationSet Name="FK_formulario_categoria" Association="Self.FK_formulario_categoria">
+      <End Role="categoria" EntitySet="categoria" />
+      <End Role="formulario" EntitySet="formulario" />
+    </AssociationSet>
+    <AssociationSet Name="FK_evento_pedido" Association="Self.FK_evento_pedido">
+      <End Role="pedido" EntitySet="pedido" />
+      <End Role="evento" EntitySet="evento" />
+    </AssociationSet>
+    <AssociationSet Name="FK_pedido_formulario" Association="Self.FK_pedido_formulario">
+      <End Role="formulario" EntitySet="formulario" />
+      <End Role="pedido" EntitySet="pedido" />
+    </AssociationSet>
+    <AssociationSet Name="FK_roteador_formulario" Association="Self.FK_roteador_formulario">
+      <End Role="formulario" EntitySet="formulario" />
+      <End Role="roteador" EntitySet="roteador" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

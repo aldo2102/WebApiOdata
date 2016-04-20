@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="EPEDIDOSModelStoreContainer" CdmEntityContainer="EPEDIDOSEntities1">
+    <EntitySetMapping Name="categoria">
+      <EntityTypeMapping TypeName="EPEDIDOSModel.categoria">
+        <MappingFragment StoreEntitySet="categoria">
+          <ScalarProperty Name="Idn_Categoria" ColumnName="Idn_Categoria" />
+          <ScalarProperty Name="Dsc_Nome" ColumnName="Dsc_Nome" />
+          <ScalarProperty Name="Dta_Categoria" ColumnName="Dta_Categoria" />
+          <ScalarProperty Name="Dsc_Status" ColumnName="Dsc_Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="evento">
+      <EntityTypeMapping TypeName="EPEDIDOSModel.evento">
+        <MappingFragment StoreEntitySet="evento">
+          <ScalarProperty Name="Idn_Evento" ColumnName="Idn_Evento" />
+          <ScalarProperty Name="Idn_Pedido" ColumnName="Idn_Pedido" />
+          <ScalarProperty Name="Dsc_Nome" ColumnName="Dsc_Nome" />
+          <ScalarProperty Name="Dta_Evento" ColumnName="Dta_Evento" />
+          <ScalarProperty Name="Dsc_Evento" ColumnName="Dsc_Evento" />
+          <ScalarProperty Name="Dsc_Perfil" ColumnName="Dsc_Perfil" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="formulario">
+      <EntityTypeMapping TypeName="EPEDIDOSModel.formulario">
+        <MappingFragment StoreEntitySet="formulario">
+          <ScalarProperty Name="Idn_Formulario" ColumnName="Idn_Formulario" />
+          <ScalarProperty Name="Idn_Grupo" ColumnName="Idn_Grupo" />
+          <ScalarProperty Name="Dsc_Nome" ColumnName="Dsc_Nome" />
+          <ScalarProperty Name="Dta_Formulario" ColumnName="Dta_Formulario" />
+          <ScalarProperty Name="Idn_Categoria" ColumnName="Idn_Categoria" />
+          <ScalarProperty Name="Dsc_Status" ColumnName="Dsc_Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="pedido">
+      <EntityTypeMapping TypeName="EPEDIDOSModel.pedido">
+        <MappingFragment StoreEntitySet="pedido">
+          <ScalarProperty Name="Idn_Pedido" ColumnName="Idn_Pedido" />
+          <ScalarProperty Name="Idn_Grupo" ColumnName="Idn_Grupo" />
+          <ScalarProperty Name="Idn_Formulario" ColumnName="Idn_Formulario" />
+          <ScalarProperty Name="Idn_Usuario" ColumnName="Idn_Usuario" />
+          <ScalarProperty Name="Idn_Usuario_Responsavel" ColumnName="Idn_Usuario_Responsavel" />
+          <ScalarProperty Name="Idn_Executor" ColumnName="Idn_Executor" />
+          <ScalarProperty Name="Dsc_Texto" ColumnName="Dsc_Texto" />
+          <ScalarProperty Name="Dsc_Status" ColumnName="Dsc_Status" />
+          <ScalarProperty Name="Dta_Pedido" ColumnName="Dta_Pedido" />
+          <ScalarProperty Name="Dsc_Nome_Criador" ColumnName="Dsc_Nome_Criador" />
+          <ScalarProperty Name="Dsc_Nome_Executor" ColumnName="Dsc_Nome_Executor" />
+          <ScalarProperty Name="Dsc_Departamento" ColumnName="Dsc_Departamento" />
+          <ScalarProperty Name="Dsc_Endereco" ColumnName="Dsc_Endereco" />
+          <ScalarProperty Name="Dsc_Telefone" ColumnName="Dsc_Telefone" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="roteador">
+      <EntityTypeMapping TypeName="EPEDIDOSModel.roteador">
+        <MappingFragment StoreEntitySet="roteador">
+          <ScalarProperty Name="Idn_Formulario" ColumnName="Idn_Formulario" />
+          <ScalarProperty Name="Idn_Grupo" ColumnName="Idn_Grupo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

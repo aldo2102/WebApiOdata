@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SIGAModelStoreContainer" CdmEntityContainer="SIGAEntities">
+    <EntitySetMapping Name="Grupo">
+      <EntityTypeMapping TypeName="SIGAModel.Grupo">
+        <MappingFragment StoreEntitySet="Grupo">
+          <ScalarProperty Name="IDN_GRUPO" ColumnName="IDN_GRUPO" />
+          <ScalarProperty Name="IDN_SISTEMA" ColumnName="IDN_SISTEMA" />
+          <ScalarProperty Name="DSC_NOME" ColumnName="DSC_NOME" />
+          <ScalarProperty Name="DSC_DESCRICAO" ColumnName="DSC_DESCRICAO" />
+          <ScalarProperty Name="Dta_Inclusao" ColumnName="Dta_Inclusao" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Perfil">
+      <EntityTypeMapping TypeName="SIGAModel.Perfil">
+        <MappingFragment StoreEntitySet="Perfil">
+          <ScalarProperty Name="IDN_PERFIL" ColumnName="IDN_PERFIL" />
+          <ScalarProperty Name="IDN_SISTEMA" ColumnName="IDN_SISTEMA" />
+          <ScalarProperty Name="DSC_NOME" ColumnName="DSC_NOME" />
+          <ScalarProperty Name="DSC_DESCRICAO" ColumnName="DSC_DESCRICAO" />
+          <ScalarProperty Name="Dta_Inclusao" ColumnName="Dta_Inclusao" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PerfilUsuario">
+      <EntityTypeMapping TypeName="SIGAModel.PerfilUsuario">
+        <MappingFragment StoreEntitySet="PerfilUsuario">
+          <ScalarProperty Name="IDN_PERFIL" ColumnName="IDN_PERFIL" />
+          <ScalarProperty Name="COD_USUARIO" ColumnName="COD_USUARIO" />
+          <ScalarProperty Name="Dta_Inclusao" ColumnName="Dta_Inclusao" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GrupoUsuario">
+      <EntityTypeMapping TypeName="SIGAModel.GrupoUsuario">
+        <MappingFragment StoreEntitySet="GrupoUsuario">
+          <ScalarProperty Name="IDN_GRUPO" ColumnName="IDN_GRUPO" />
+          <ScalarProperty Name="COD_USUARIO" ColumnName="COD_USUARIO" />
+          <ScalarProperty Name="IDN_PERFIL" ColumnName="IDN_PERFIL" />
+          <ScalarProperty Name="Dta_Inclusao" ColumnName="Dta_Inclusao" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="PerfilGrupo" TypeName="SIGAModel.PerfilGrupo" StoreEntitySet="PerfilGrupo">
+      <EndProperty Name="Grupo">
+        <ScalarProperty Name="IDN_GRUPO" ColumnName="IDN_GRUPO" />
+      </EndProperty>
+      <EndProperty Name="Perfil">
+        <ScalarProperty Name="IDN_PERFIL" ColumnName="IDN_PERFIL" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

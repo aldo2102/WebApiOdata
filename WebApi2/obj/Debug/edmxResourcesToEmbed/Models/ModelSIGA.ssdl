@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SIGAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Grupo">
+    <Key>
+      <PropertyRef Name="IDN_GRUPO" />
+    </Key>
+    <Property Name="IDN_GRUPO" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IDN_SISTEMA" Type="bigint" Nullable="false" />
+    <Property Name="DSC_NOME" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="DSC_DESCRICAO" Type="text" />
+    <Property Name="Dta_Inclusao" Type="datetime" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'SIGA.dbo.GrupoUsuario' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="GrupoUsuario">
+    <Key>
+      <PropertyRef Name="IDN_GRUPO" />
+      <PropertyRef Name="COD_USUARIO" />
+    </Key>
+    <Property Name="IDN_GRUPO" Type="bigint" Nullable="false" />
+    <Property Name="COD_USUARIO" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="IDN_PERFIL" Type="bigint" />
+    <Property Name="Dta_Inclusao" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Perfil">
+    <Key>
+      <PropertyRef Name="IDN_PERFIL" />
+    </Key>
+    <Property Name="IDN_PERFIL" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IDN_SISTEMA" Type="bigint" Nullable="false" />
+    <Property Name="DSC_NOME" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="DSC_DESCRICAO" Type="text" />
+    <Property Name="Dta_Inclusao" Type="datetime" />
+  </EntityType>
+  <EntityType Name="PerfilGrupo">
+    <Key>
+      <PropertyRef Name="IDN_PERFIL" />
+      <PropertyRef Name="IDN_GRUPO" />
+    </Key>
+    <Property Name="IDN_PERFIL" Type="bigint" Nullable="false" />
+    <Property Name="IDN_GRUPO" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PerfilUsuario">
+    <Key>
+      <PropertyRef Name="IDN_PERFIL" />
+      <PropertyRef Name="COD_USUARIO" />
+    </Key>
+    <Property Name="IDN_PERFIL" Type="bigint" Nullable="false" />
+    <Property Name="COD_USUARIO" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Dta_Inclusao" Type="datetime" />
+  </EntityType>
+  <Association Name="FK_GrupoUsuario_Grupo">
+    <End Role="Grupo" Type="Self.Grupo" Multiplicity="1" />
+    <End Role="GrupoUsuario" Type="Self.GrupoUsuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Grupo">
+        <PropertyRef Name="IDN_GRUPO" />
+      </Principal>
+      <Dependent Role="GrupoUsuario">
+        <PropertyRef Name="IDN_GRUPO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GrupoUsuario_Perfil">
+    <End Role="Perfil" Type="Self.Perfil" Multiplicity="0..1" />
+    <End Role="GrupoUsuario" Type="Self.GrupoUsuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Perfil">
+        <PropertyRef Name="IDN_PERFIL" />
+      </Principal>
+      <Dependent Role="GrupoUsuario">
+        <PropertyRef Name="IDN_PERFIL" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PerfilGrupo_Grupo">
+    <End Role="Grupo" Type="Self.Grupo" Multiplicity="1" />
+    <End Role="PerfilGrupo" Type="Self.PerfilGrupo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Grupo">
+        <PropertyRef Name="IDN_GRUPO" />
+      </Principal>
+      <Dependent Role="PerfilGrupo">
+        <PropertyRef Name="IDN_GRUPO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PerfilGrupo_Perfil">
+    <End Role="Perfil" Type="Self.Perfil" Multiplicity="1" />
+    <End Role="PerfilGrupo" Type="Self.PerfilGrupo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Perfil">
+        <PropertyRef Name="IDN_PERFIL" />
+      </Principal>
+      <Dependent Role="PerfilGrupo">
+        <PropertyRef Name="IDN_PERFIL" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PerfilUsuario_Perfil">
+    <End Role="Perfil" Type="Self.Perfil" Multiplicity="1" />
+    <End Role="PerfilUsuario" Type="Self.PerfilUsuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Perfil">
+        <PropertyRef Name="IDN_PERFIL" />
+      </Principal>
+      <Dependent Role="PerfilUsuario">
+        <PropertyRef Name="IDN_PERFIL" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SIGAModelStoreContainer">
+    <EntitySet Name="Grupo" EntityType="Self.Grupo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Perfil" EntityType="Self.Perfil" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PerfilGrupo" EntityType="Self.PerfilGrupo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PerfilUsuario" EntityType="Self.PerfilUsuario" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GrupoUsuario" EntityType="Self.GrupoUsuario" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[GrupoUsuario].[IDN_GRUPO] AS [IDN_GRUPO], 
+[GrupoUsuario].[COD_USUARIO] AS [COD_USUARIO], 
+[GrupoUsuario].[IDN_PERFIL] AS [IDN_PERFIL], 
+[GrupoUsuario].[Dta_Inclusao] AS [Dta_Inclusao]
+FROM [dbo].[GrupoUsuario] AS [GrupoUsuario]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_GrupoUsuario_Grupo" Association="Self.FK_GrupoUsuario_Grupo">
+      <End Role="Grupo" EntitySet="Grupo" />
+      <End Role="GrupoUsuario" EntitySet="GrupoUsuario" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GrupoUsuario_Perfil" Association="Self.FK_GrupoUsuario_Perfil">
+      <End Role="Perfil" EntitySet="Perfil" />
+      <End Role="GrupoUsuario" EntitySet="GrupoUsuario" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PerfilGrupo_Grupo" Association="Self.FK_PerfilGrupo_Grupo">
+      <End Role="Grupo" EntitySet="Grupo" />
+      <End Role="PerfilGrupo" EntitySet="PerfilGrupo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PerfilGrupo_Perfil" Association="Self.FK_PerfilGrupo_Perfil">
+      <End Role="Perfil" EntitySet="Perfil" />
+      <End Role="PerfilGrupo" EntitySet="PerfilGrupo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PerfilUsuario_Perfil" Association="Self.FK_PerfilUsuario_Perfil">
+      <End Role="Perfil" EntitySet="Perfil" />
+      <End Role="PerfilUsuario" EntitySet="PerfilUsuario" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
